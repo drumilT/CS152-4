@@ -1,0 +1,10 @@
+#lang racket
+(define (cprod lst)
+(foldr (lambda (x y)
+         (foldr (lambda (x1 y1)
+                  (append (map (lambda (lst1)
+                               (append (list x1) lst1) ) y)
+                        y1))
+                '() x))
+'(()) lst)
+  )
