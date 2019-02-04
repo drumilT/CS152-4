@@ -1,0 +1,3 @@
+#lang racket
+(define (my_expt x lst)
+  (foldl (lambda (x y) (if (zero? x) (square y) ( square (* y x))))))

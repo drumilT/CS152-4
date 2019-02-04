@@ -1,0 +1,11 @@
+#lang racket
+(define (modexp x y n)
+  (if (zero y) 1 (if (even? y)
+                     ( modulo (sq (modulo (modexp x (/ y 2) n) n)) n)
+                     (modulo(*
+                             x
+                             (modulo (sq (modulo (modexp x (quotient y 2) n) n)) n))
+                            n)
+                     )
+      )
+  )
