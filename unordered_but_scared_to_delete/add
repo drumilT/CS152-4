@@ -1,0 +1,15 @@
+#lang racket
+
+(define (add_single a b c) (+ (+ a b) c))
+  
+(let add ([x 3200]
+          [y 3214]
+          [c 0])
+  (if (and (zero? x) (zero? y))
+      c
+      (let* ([rx10 (remainder x 10)]
+             [ry10 (remainder y 10)]
+             [qx10 (quotient x 10)]
+             [qy10 (quotient y 10)]
+             [col_add (add_single rx10 ry10 c)])
+        (+ (* 10 (add qx10 qy10 (quotient col_add 10))) (remainder col_add 10)) )))

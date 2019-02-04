@@ -1,0 +1,28 @@
+#lang racket
+
+(define (add_single a b c) (+ (+ a b) c))
+(define (add x y c)  
+  (if (and (zero? x) (zero? y))
+      c
+      (let* ([rx10 (remainder x 10)]
+             [ry10 (remainder y 10)]
+             [qx10 (quotient x 10)]
+             [qy10 (quotient y 10)]
+             [col_add (add_single rx10 ry10 c)])
+        (+ (* 10 (add qx10 qy10 (quotient col_add 10))) (remainder col_add 10)) )))
+(define (multn1 a b)
+  (if (zero? (quotient a 10))
+      ( * a b)
+      (let* ([ra10 (remainder a 10)]
+             [qa10 (quotient a 10)]
+             [multsing (multn1 b ra10)])
+        (add (* 10 (multn1 b qa10)) multsing 0) )))
+
+(let mult ([x 758]
+           [y 42])
+  (if (zero? y)
+      0
+      (let* ([ry10 (remainder y 10)]
+             [qy10 (quotient y 10)]
+             [multsing (multn1 x ry10)])
+        (add (* 10 (mult x qy10)) multsing 0) )))

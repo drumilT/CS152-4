@@ -1,0 +1,12 @@
+#lang racket
+(define (goldbach m)
+  (let call ([a m ][b 0])(if (zero? a) #f
+                             (if (and (prime a) (prime b))
+                                 (cons a b)
+                                 (call (- a 1) (+ b 1))))))
+
+(define (prime n)
+  (if (or (zero? n) (= n 1)) #f
+  (let call2 ([a 2])
+    (if (= n a) #t
+        (if (zero? (remainder n a)) #f (call2 (+ a 1)))))))
