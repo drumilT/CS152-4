@@ -1,0 +1,10 @@
+#lang racket
+(define  (perfect n)
+  (if (= (cdr (check_sum (- n 1) 0 n)) n )
+      #t #f))
+
+(define (check_sum value sum n)
+  (if (= value 0)
+      (cons 0 sum )
+      (if (zero? (remainder n value) )
+          (check_sum (- value 1) (+ sum value) n)(check_sum (- value 1) sum n))))
