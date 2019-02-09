@@ -1,0 +1,7 @@
+#lang racket
+( define (decode p q e c)
+   (define (findD val e d )
+     (if (= ((e*d) \ val) 1)(d)(finD val e (+ d 1))
+         )
+     )
+   

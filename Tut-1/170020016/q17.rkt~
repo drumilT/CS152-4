@@ -1,0 +1,11 @@
+#lang racket
+(define (simpson f a b n)
+  (let call([val 0][itr (- n 1 )][h (/ (- a b) n)])
+    (if (= itr 0) ( + (f a) (f b) val)
+        (if (= (remainder itr 2) 1)
+            (+ val (* 4 (f (+ a (* ( - n itr ) h)))))
+            (+ val (* 2 (f (+ a (* ( - n itr ) h)))))
+            )
+        )
+    )
+  )

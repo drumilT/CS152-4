@@ -1,0 +1,3 @@
+#lang racket
+ (define (filtered-accumulate lb ub func pred)
+   
