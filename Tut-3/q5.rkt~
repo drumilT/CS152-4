@@ -1,0 +1,7 @@
+#lang racket
+(struct dir (info fdlist) #:transparent)
+(struct file (info contents) #:transparent)
+
+( define ( findtree t path)
+   ( if (= (length path) 1) t
+        ( findtree (filter ( lambda (x)  (= x (car path))) (dir-fdlist t)) (cdr path))))  
