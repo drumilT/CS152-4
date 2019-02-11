@@ -1,0 +1,16 @@
+#lang racket
+(struct node (ltree val rtree) #:transparent)
+(struct leaf(val) #:transparent)
+
+(define (height t)
+  (match t
+      [(node lt v rt) ( + 1 (max (height lt) (height rt))) ]
+       [(leaf val) 1 ]))
+
+(define (dia t)
+   (match t [(node ltree v rtree) (max ( + 1 (height rtree)
+                                           (height ltree))
+                                      (dia ltree)
+                                      (dia rtree))]
+           [(leaf val) 0]))
+  

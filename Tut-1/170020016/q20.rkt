@@ -4,3 +4,6 @@
     (if (zero? itr) a (call b (+ a b) (- itr 1)))
     )
   )
+
+(define (fib-lightening n)
+  
