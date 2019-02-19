@@ -11,7 +11,7 @@
          (prefix-in  algo: "secret-word-enumeration.rkt"))
 
 (provide crack-cipher
-         crack-hard-cipher ;; Optional, no extra credits for this :)
+          ;; Optional, no extra credits for this :)
          )
 
 ;; TIPS
@@ -119,17 +119,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (crack-cipher strategies key) ;; Returns list of encryption keys.
-  ;; make use of `utils:ciphertext` and `utils:cipher-word-list`
-  ;; DISPLAY A KEY AS SOON AS YOU FIND IT USING (show-key key)
-  (list key))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                 Optional task                                    ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Behaviour is exactly as `crack-cipher` except that you cannot use
-;; `secret-word-enumeration` because there is no secret word in the key.
-(define (crack-hard-cipher strategies key) ;; Returns a list of encryption keys.
-  ;; make use of `utils:ciphertext` and `utils:cipher-word-list`
-  ;; DISPLAY A KEY AS SOON AS YOU FIND IT USING (show-key key)
-  (list key))
+  (define (algorithm key)
+    (define pkey (algo:dictionary-closure key))
+    (if (list? pkey) (algo:secret-word-enumeration (list->string pkey))
+        #f))
+  (strat:etai key))

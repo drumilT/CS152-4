@@ -51,10 +51,10 @@
 
 
 (define (cipher-monograms ciphertext)
-  (lc (car char) : char <- (sort (foldr (lambda ( x y) (if (check-present x y)
+  (lc (car char) : char <- (sort (foldr (lambda ( x y) ( if (char-alphabetic? x)(if (check-present x y)
                                            (lc (if (equal? x (car t)) (cons (car t) (+ 1 (cdr t))) t): t <- y)
                                            (append (list (cons x 1)) y)
-                                           )
+                                           ) y )
                           )
                         '()
                         (string->list ciphertext)
@@ -103,11 +103,33 @@
 ;;
 ;; The output is a list of pairs of cipher char and the count of it's
 ;; neighbours. The list must be in decreasing order of the neighbourhood count.
+
+( define (alphabets) '(#\a #\b #\c #\d #\e #\f #\g #\h #\i #\j #\k #\l #\m #\n #\o #\p #\q #\r #\s #\t #\u #\v #\w #\x #\y #\z))
+
 (define (cipher-unique-neighbourhood cipher-bigrams-list mode)
   ;; You must match against or test (using cond) for the `mode` argument. Possibilities are:
   ;; 'predecessor, 'successor, 'both
   ;; Figure out experimentally which of these is a good indicator for E vs T.
-  '())
+  (define ( succ x) ( remove-duplicates (foldr (lambda (letter-pair y ) (if (equal? x (cadr (string->list letter-pair))) 
+                                                             (append (list (car (string->list letter-pair))) y )
+                                                             y))
+                                 '()
+                                 cipher-bigrams-list)))
+  (define ( pred x) ( remove-duplicates (foldr (lambda (letter-pair y ) (if (equal? x (car (string->list letter-pair))) 
+                                                             (append (list (cadr (string->list letter-pair))) y )
+                                                             y))
+                                 '()
+                                 cipher-bigrams-list)))
+
+  (define ( both x) (remove-duplicates ( append (pred x )(succ x) )))
+  
+  
+  (map (lambda (x) (cond [(equal? mode 'successor) (cons x (length (succ x)))]
+                          [(equal? mode 'predecessor) (cons x (length (pred x)))]
+                          [(equal? mode 'both) (cons x (length ( both x )))]
+                          )
+                         )
+          (alphabets)))
 
 ;; Takes the bigram frequency order (output of `cipher-bigrams`) and computes
 ;; the neighbourhood of each letter with every other letter, but counts each
@@ -120,7 +142,26 @@
   ;; You must match against or test (using cond) for the `mode` argument. Possibilities are:
   ;; 'predecessor, 'successor, 'both
   ;; Figure out experimentally which of these is a good indicator for E vs T.
-  '())
+  (define ( succ x) (foldr (lambda (letter-pair y ) (if (equal? x (cadr (string->list letter-pair))) 
+                                                             (append (list (car (string->list letter-pair))) y )
+                                                             y))
+                                 '()
+                                 cipher-bigrams-list))
+  (define ( pred x) (foldr (lambda (letter-pair y ) (if (equal? x (car (string->list letter-pair))) 
+                                                             (append (list (cadr (string->list letter-pair))) y )
+                                                             y))
+                                 '()
+                                 cipher-bigrams-list))
+
+  (define ( both x) ( append (pred x )(succ x) ))
+  
+  
+  (map (lambda (x) (cond [(equal? mode 'successor) (cons x (length (succ x)))]
+                          [(equal? mode 'predecessor) (cons x (length (pred x)))]
+                          [(equal? mode 'both) (cons x (length ( both x )))]
+                          )
+                         )
+          (alphabets)))
 
 ;; Takes the cipher-word-list and produces a list of 3-letter bigram (strings)
 ;; sorted in decreasing order of frequency. Each element must be a string!

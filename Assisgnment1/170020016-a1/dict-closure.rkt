@@ -3,9 +3,12 @@
 ;; You can require more modules of your choice.
 (require racket/list
          racket/string
-         (prefix-in utils: "utils.rkt"))
+         (prefix-in utils: "utils.rkt")
+         "list-comprehension.rkt"
+         (prefix-in  algo: "secret-word-enumeration.rkt"))
 
-(provide dictionary-closure)
+(provide dictionary-closure
+         update)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                                                                  ;;
@@ -38,5 +41,45 @@
 ;;                                                                                  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (dictionary-closure key)
-  key)
+
+(define (word-check part-word) ;; Returns a complete/incomplete word or false (#f)
+  ( if  ( = 0 (length (match part-word))) #f
+        ( if ( = 1 (length (match part-word)))
+             ( car (match part-word ))
+              part-word)))     
+
+(define (match key)
+  (lc x : x <- utils:dictionary @(and (= (string-length key) (string-length x))(check-if-match x key) )
+  ))
+
+(define (check-if-match word key)
+ (foldl (lambda ( x y) (and y ( if (char-lower-case? (cdr x) ) #t (equal? (car x) (cdr x)))))
+        #t
+        ( map cons ( string->list word) (string->list key ))
+  ))
+
+(define replaceNth
+  (lambda (nth item list1)
+    (cond [(= nth 1) (append (list item) (cdr list1))] 
+          [else (append (list (car list1)) (replaceNth (- nth 1) item (cdr list1)))])))
+
+(define (update key word-pair)
+  (foldr (lambda (x y) (if ( equal? (car x)(cdr x)) y (replaceNth ( - (char->integer (cdr x)) 64 ) (car x) y))) key word-pair ))
+
+(define (call key lst)
+(if (null? lst) key (
+ if (equal? (car lst) (word-check (car lst))) (call key (cdr lst))
+    ( if  (not (boolean? (word-check (car lst))))
+         (dictionary-closure ( update key
+                                                        ( map cons ( string->list (car lst))
+                                                                              (string->list (word-check (car lst))))
+                                                               ))
+          #f ))))
+
+(define (sanitize-text ciphertext)
+  (regexp-replace* (pregexp "'\\w+") ciphertext ""))
+
+  (define (dictionary-closure key)
+    (if  (and (algo:secret-word-enumeration key) (printf (string-append ( list->string key) "\n" )))
+        (call (algo:secret-word-enumeration key) (regexp-match* (pregexp "\\w+") (sanitize-text (utils:decrypt key utils:ciphertext))))
+        #f))

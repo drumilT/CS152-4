@@ -33,10 +33,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (secret-word-enumeration key-after-dictionary-closure) ;; Returns a key or false (#f)
-  ( if  ( = 0 (length (match key-after-dictionary-closure))) #f
-        ( if ( = 1 (length (match key-after-dictionary-closure)))
-             ( car (match ( substring key-after-dictionary-closure 0 6)))
-             key-after-dictionary-closure)))
+  (define key (list->string key-after-dictionary-closure)) 
+  ( if  ( = 0 (length (match key))) #f
+        ( if ( = 1 (length (match key)))
+             ( utils:encryption-key (car (match ( substring key 0 6))))
+             (string->list key))))
      
 
 (define (match key)
@@ -44,7 +45,7 @@
   ))
 
 (define (check-if-match word key)
- (foldl (lambda ( x y) (and y ( if (equal? (cdr x) #\space) #t (equal? (car x) (cdr x)))))
+ (foldl (lambda ( x y) (and y ( if (equal? (cdr x) #\_ ) #t (equal? (car x) (cdr x)))))
         #t
         ( map cons ( string->list ( substring word 0 6)) (string->list ( substring key 0 6)))
   ))

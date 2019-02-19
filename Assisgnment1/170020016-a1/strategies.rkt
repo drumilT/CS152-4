@@ -3,7 +3,8 @@
 ;; You can require more modules of your choice.
 (require racket/list
          (prefix-in utils: "utils.rkt")
-         (prefix-in stats: "statistics.rkt"))
+         (prefix-in stats: "statistics.rkt")
+         (prefix-in dict-clo: "dict-closure.rkt"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                                                                     ;;
@@ -77,8 +78,24 @@
 ;; substitutions for E, T, A and I.
 ;; Refer the assignment manual for tips on developing this strategy. You can
 ;; interact with our etai with the executable we provide.
+(define (update key word-pair)
+  (foldr (lambda (x y) (if ( equal? (car x)(cdr x)) y (replaceNth ( - (char->integer (cdr x)) 64 ) (car x) y))) key word-pair ))
+(define replaceNth
+  (lambda (nth item list1)
+    (cond [(= nth 1) (append (list item) (cdr list1))] 
+          [else (append (list (car list1)) (replaceNth (- nth 1) item (cdr list1)))])))
+
+
+
 (define (etai key)
-  '())
+  
+   (dict-clo:dictionary-closure (dict-clo:update key ( append
+                                                       (map cons  ( string->list( substring (list->string( foldr (lambda (x y) (append ( string->list x) y))
+                                                                                                                   '()
+                                                                                                                   (stats:cipher-common-words-single utils:cipher-word-list))) 0 2))
+                                                            '(#\A #\I))
+                                                       (map cons  ( string->list( substring (list->string(stats:cipher-monograms utils:ciphertext)) 0 2))
+                                                            '(#\E #\T ))))))
 
 ;; A suggested composition of strategies that might work well. Has not been
 ;; exhaustively tested by us. Be original ;)
