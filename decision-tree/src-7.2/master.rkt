@@ -25,7 +25,7 @@
 (define toy-raw (cdr (read-csv-file "../data/toy_train.csv")))
 
 (provide titanic-raw)
-(define titanic-raw (cdr (read-csv-file "../data/titanic_train.csv")))
+(define titanic-raw ( map (lambda (x) ( cddr x)) (cdr (read-csv-file "../data/titanic_train.csv"))))
 
 (provide mushroom-raw)
 (define mushroom-raw (cdr (read-csv-file "../data/mushrooms_train.csv")))
@@ -33,14 +33,9 @@
 ;function to convert data to internal numerical format
 ;(features . result)
 (provide format)
-(define (format data) (map ( lambda (x)
-                              (map
-                               ( lambda (x1)
-                                  ( cons (string->number(car x1))
-                                         (map ( lambda (x2) (string->number x1) cdr x1)))
-                                  x)
-                               ))
-                           data))
+(define (format data) (map  ( lambda (x1)
+                               ( cons (map ( lambda (x2) (string->number x2)) (cdr x1)) (string->number(car x1))))                               
+                            data))
 
 ;list of (features . result)
 (provide toy)
@@ -60,43 +55,45 @@
 ;used to find probability value at leaf
 (provide get-leaf-prob)
 (define (get-leaf-prob data)
-  ...
+  (/ (foldr (lambda ( x y) ( + y (cdr x))) 0 data) (length data))
   )
 
 ;get entropy of dataset
 (provide get-entropy)
 (define (get-entropy data)
-  ...
-  )
+  ( define prob (get-leaf-prob data ))
+  (/ (+ ( * prob (log prob  )) (* ( - 1 prob) (log ( - 1 prob)))) ( -1 * (log 2))))
+  
 
 ;find the difference in entropy achieved
 ;by applying a decision function f to the data
 (provide entropy-diff)
 (define (entropy-diff f data)
-  ...
-  )
+  ( define (nf x) (not (f x)))
+(abs ( - (get-entropy (filter f data) ) (get-entropy (filter nf data) ))) 
+)
 
 ;choose the decision function that most reduces entropy of the data
 (provide choose-f)
 (define (choose-f candidates data) ; returns a decision function
-  ...
+( car (foldr ( lambda ( x y) (if ( > (entropy-diff x data) (cadr y)) (cons x (entropy-diff x data) ) y)) ( cons 1000 100) candidates))  
   )
-
+;;;; edit above according to requiremnt of entropy
 (provide DTree)
 (struct DTree (desc func kids))
 
 ;build a decision tree (depth limited) from the candidate decision functions and data
-(provide build-tree)
-(define (build-tree candidates data depth)
-  ...
-  )
+;;;(provide build-tree)
+;;;(define (build-tree candidates data depth)
+;;; ...
+;;;)
 
 ;given a test data (features only), make a decision according to a decision tree
 ;returns probability of the test data being classified as 1
-(provide make-decision)
-(define (make-decision tree test)
-  ...
-  )
+;;;(provide make-decision)
+;;;(define (make-decision tree test)
+;;;...
+;;;)
 
 ;============================================================================================================
 ;============================================================================================================
@@ -117,13 +114,13 @@
   (let* ([node (match tree [(DTree d f c) (cons d c)])]
          [f (car node)]
          [c (cdr node)])
-    (string-append tabs "r" prefix "[label=\"" d "\"];" "\n\n" (dot-child (pair-idx c 0) prefix tabs))
+    (string-append tabs "r" prefix "[label=\"" f "\"];" "\n\n" (dot-child (pair-idx c 0) prefix tabs))
     )
   )
 
 ;output tree (dot file)
-(provide display-tree)
-(define (display-tree tree)
+(provide display-tree )
+(define (display-tree tree dtfile)
   (write-file dtfile (string-append "graph \"decision-tree\" {" "\n" (dot-helper tree "" "\t") "}"))
   )
 ;============================================================================================================
