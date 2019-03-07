@@ -1,0 +1,17 @@
+#lang racket
+(require "list-comprehension.rkt")
+( define l1 (list 1 2 3 4 5 6 7 8 9))
+( define l2 (list 1 2 3 4 5 6 7 8 9))
+( define l3 (list 1 2 3 4 5 6 7 8 9))
+
+( define (checksum l1 l2 l3)
+   (lc (list a b c  ): a <- l1 b <- l2 c <- l3 @ (equal? (+ a b c) 6)))
+
+( define ( lcs l1 l2)
+   ( if (or ( null? l1 )(null? l2)) '()
+        (if ( equal? (car l2)(car l1)) (append (list ( car l1) ) (lcs ( cdr l1)(cdr l2)))
+            ( max-length (lcs l1(cdr l2)) (lcs ( cdr l1) l2)))))
+
+( define ( max-length l1 l2)
+   ( if ( > (length l1) (length l2)) l1 l2))
+   
