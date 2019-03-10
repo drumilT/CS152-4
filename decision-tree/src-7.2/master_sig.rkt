@@ -1,6 +1,6 @@
 #lang racket
 (require 2htdp/batch-io)
-(require "decision_functions.rkt")
+(require "decision_functions_sig.rkt")
 
 ;input dataset
 (provide toytrain)
@@ -70,23 +70,26 @@
 (provide entropy-diff)
 (define (entropy-diff f data)
   ( define (nf x) (not (f x)))
-(abs ( - (get-entropy (filter f data) ) (get-entropy (filter nf data) ))) 
+  (define filf (filter f data))
+  (define filnf (filter nf data))
+  (define eha  ( / ( + ( * (get-entropy filf ) (length filf)) ( * (get-entropy filnf ) (length filnf))) (length data)))
+  (- ( get-entropy data) (eha))
 )
 
 ;choose the decision function that most reduces entropy of the data
 (provide choose-f)
 (define (choose-f candidates data) ; returns a decision function
-( car (foldr ( lambda ( x y) (if ( > (entropy-diff x data) (cadr y)) (cons x (entropy-diff x data) ) y)) ( cons 1000 100) candidates))  
+( car (foldr ( lambda ( x y) (if ( > (entropy-diff x data) (cadr y)) (cons x (entropy-diff x data) ) y)) ( cons 0 0) candidates))  
   )
-;;;; edit above according to requiremnt of entropy
+
 (provide DTree)
 (struct DTree (desc func kids))
 
 ;build a decision tree (depth limited) from the candidate decision functions and data
-;;;(provide build-tree)
-;;;(define (build-tree candidates data depth)
-;;; ...
-;;;)
+;;(provide build-tree)
+;;(define (build-tree candidates data depth)
+ ;;...
+;;)
 
 ;given a test data (features only), make a decision according to a decision tree
 ;returns probability of the test data being classified as 1
