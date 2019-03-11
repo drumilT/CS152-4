@@ -1,0 +1,4 @@
+#lang racket
+
+(define (to-function lst)
+  (string->number (lst->string lst)))
