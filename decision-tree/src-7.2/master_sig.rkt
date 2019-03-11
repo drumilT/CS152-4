@@ -86,10 +86,10 @@
 (struct DTree (desc func kids))
 
 ;build a decision tree (depth limited) from the candidate decision functions and data
-;;(provide build-tree)
-;;(define (build-tree candidates data depth)
- ;;...
-;;)
+(provide build-tree)
+(define (build-tree candidates data depth)
+
+)
 
 ;given a test data (features only), make a decision according to a decision tree
 ;returns probability of the test data being classified as 1
