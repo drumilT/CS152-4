@@ -15,9 +15,9 @@
           (nth (- n 1) (cdr l)))))
 
 (define y1  (cons "feature1" (lambda (x) (car x)))) ; returns the value of feature 1 for a given test sample
-(define y2  (cons "feature2" (lambda (x) (cadr x))))
-(define y3  (cons "feature3" (lambda (x) (caddr x))))
-(define y4>62  (cons "feature4>62" (lambda (x) (if (> (cadddr x) 62) 1 0)))) ; returns 1 if the value of feature 4 > 62, else 0
+(define y2  (cons "feature2" (lambda (x) (second x))))
+(define y3  (cons "feature3" (lambda (x) (third x))))
+(define y4>62  (cons "feature4>62" (lambda (x) (if (> (fourth x) 62) 1 0)))) ; returns 1 if the value of feature 4 > 62, else 0
 
 
 ;candidate functions for the titanic dataset
@@ -30,12 +30,12 @@
 (provide emb)
 
 (define pclass (cons "pclass" (lambda (x) (car x)))) ; returns the value of pclass for a given test sample
-(define sex  (cons "sex" (lambda (x) (cadr x))))
-(define age>25 (cons "age>25" (lambda (x) (if (> (caddr x) 25) 1 0))))
-(define sibsp  (cons "sibsp" (lambda (x) (cadddr x))))
-(define parch  (cons "parch" (lambda (x) (caddr (reverse x)))))
-(define fare>50  (cons "fare>50" (lambda (x) (if(> (cadr (reverse x)) 50) 1 0))))
-(define emb  (cons "emb"(lambda (x) (car (reverse x)))))
+(define sex  (cons "sex" (lambda (x) (second x))))
+(define age>25 (cons "age>25" (lambda (x) (if (> (third x) 25) 1 0))))
+(define sibsp  (cons "sibsp" (lambda (x) (fourth x))))
+(define parch  (cons "parch" (lambda (x) (fifth x))))
+(define fare>50  (cons "fare>50" (lambda (x) (if(> (sixth x) 50) 1 0))))
+(define emb  (cons "emb"(lambda (x) (seventh x))))
 
 ;candidate functions for the mushroom dataset
 (provide cshape)
@@ -51,13 +51,13 @@
 (provide hab)
 
 (define cshape (cons "cshape" (lambda (x) (car x))))
-(define csurf  (cons "csurf" (lambda (x) (cadr x))))
-(define bruise (cons "bruise" (lambda (x) (caddr x))))
-(define odor   (cons "odor"(lambda (x) (cadddr x))))
-(define gatch  (cons "gatch" (lambda (x) (car ( cddddr x)))))
-(define gspace (cons "gspace" (lambda (x) (cadr (cddddr x)))))
-(define gsize  (cons "gsize" (lambda (x) (caddr (cddddr x)))))
-(define sshape (cons "sshape" (lambda (x) (cadddr (reverse x)))))
-(define nring  (cons "nring" (lambda (x) (caddr (reverse x)))))
-(define pop    (cons "pop" (lambda (x) (cadr (reverse x)))))
-(define hab    (cons "hab" (lambda (x) (car (reverse x)))))
+(define csurf  (cons "csurf" (lambda (x) (second x))))
+(define bruise (cons "bruise" (lambda (x) (third x))))
+(define odor   (cons "odor"(lambda (x) (fourth x))))
+(define gatch  (cons "gatch" (lambda (x) (fifth x))))
+(define gspace (cons "gspace" (lambda (x) (sixth x))))
+(define gsize  (cons "gsize" (lambda (x) (seventh x))))
+(define sshape (cons "sshape" (lambda (x) (eighth x))))
+(define nring  (cons "nring" (lambda (x) (ninth x))))
+(define pop    (cons "pop" (lambda (x) (tenth x))))
+(define hab    (cons "hab" (lambda (x) (last x))))
