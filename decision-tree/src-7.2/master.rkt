@@ -1,6 +1,8 @@
 #lang racket
+
 (require 2htdp/batch-io)
-(require "decision_functions_sig.rkt")
+(require math/statistics)
+(require "decision_functions.rkt")
 
 ;input dataset
 (provide toytrain)
@@ -10,11 +12,18 @@
 (define titanictrain "../data/titanic_train.csv")
 
 (provide mushroomtrain)
-(define mushroomtrain "../data/mushroom_train.csv")
+(define mushroomtrain "../data/mushrooms_train.csv")
 
 ;output tree (dot file)
 (provide toyout)
 (define toyout "../output/toy-decision-tree.dot")
+
+(provide titanicout)
+(define titanicout "../output/titanic-decision-tree.dot")
+
+(provide mushroomout)
+(define mushroomout "../output/mushroom-decision-tree.dot")
+
 
 ;reading input datasets
 ;read the csv file myfile as a list of strings
@@ -22,13 +31,13 @@
 ;further split each line at commas
 ;so then we have a list of list of strings
 (provide toy-raw)
-(define toy-raw (cdr (read-csv-file "../data/toy_train.csv")))
+(define toy-raw (cdr (read-csv-file toytrain)))
 
 (provide titanic-raw)
-(define titanic-raw ( map (lambda (x) ( cddr x)) (cdr (read-csv-file "../data/titanic_train.csv"))))
+(define titanic-raw ( map (lambda (x) ( cddr x)) (cdr (read-csv-file  titanictrain))))
 
 (provide mushroom-raw)
-(define mushroom-raw (cdr (read-csv-file "../data/mushrooms_train.csv")))
+(define mushroom-raw (cdr (read-csv-file mushroomtrain)))
 
 ;function to convert data to internal numerical format
 ;(features . result)
@@ -55,14 +64,15 @@
 ;used to find probability value at leaf
 (provide get-leaf-prob)
 (define (get-leaf-prob data)
-  (/ (length (filter-not (lambda (x) (zero? (cdr x))) data)) (length data))
+  (/ (count (lambda (x) (equal? 1 (cdr x))) data) (length data))
   )
+  
 
 ;get entropy of dataset
 (provide get-entropy)
 (define (get-entropy data)
   ( define prob (get-leaf-prob data ))
-  (if (or (zero? prob) (equal? prob 1)) -inf.0
+  (if (or (zero? prob) (equal? prob 1)) 0
       (/ (+ ( * prob (log prob  )) (* ( - 1 prob) (log ( - 1 prob)))) (* -1 (log 2)))))
   
 
@@ -81,39 +91,52 @@
 ;choose the decision function that most reduces entropy of the data
 (provide choose-f)
 (define (choose-f candidates data) ; returns a decision function
-  (foldr ( lambda ( x y) (if ( > (entropy-diff (cdr x) data) (cdr y))
+  (foldl ( lambda ( x y) (if ( > (entropy-diff (cdr x) data) (cdr y))
                              (cons  x (entropy-diff (cdr x) data) ) y))
-         ( cons 0 0)
+         (cons ( cons 0 0) -inf.0)
          candidates)
   )
   
   
 
 (provide DTree)
-(struct DTree (desc func kids))
+(struct DTree (desc func kids) )
 
 ;build a decision tree (depth limited) from the candidate decision functions and data
 (provide build-tree)
 (define (build-tree candidates data depth)
   (define chosen (choose-f candidates data))
+  (define (grouped) (group-by (lambda (x) ((cdar chosen) (car x))) data))
+  (define (order) (remove-duplicates(map (lambda (x) ((cdar chosen) (car x))) data)))
   (define new-cand (filter-not (lambda (x) (equal? (car chosen) x)) candidates))
-  ( if (zero? (- depth 1)) (DTree (~a (get-leaf-prob data)) "leaf" '())
-       (DTree (caar chosen) (~a (cdr chosen))  (map (lambda (x)
+  ( if (or (null? candidates) (zero?  depth ))
+           (DTree (~a (get-leaf-prob data)) (get-leaf-prob data) '())
+       (DTree (caar chosen) (cons (cdar chosen) (order))  (map (lambda (x)
                                                 ( build-tree new-cand x (- depth 1))
                                                  )
-                                              (group-by (lambda (x) ((cdar chosen) (car x)))
-                                                        data)
+                                              (grouped)
                                               )
               )
        )
   )
 ;given a test data (features only), make a decision according to a decision tree
 ;returns probability of the test data being classified as 1
-;;;(provide make-decision)
-;;;(define (make-decision tree test)
-;;;...
-;;;)
+(provide make-decision)
+(define (make-decision tree test)
+   (mean (match-in tree test)))
 
+(define (match-in tree unit)
+  (let* ([node (match tree [(DTree d f c) (cons f c)])]
+         [f (car node)]
+         [c (cdr node)]
+         [ind (if (null? c) #t (index-of (cdr f) (( car f) unit)))]
+         )
+    (if (null? c) (list  f)
+        (if ind (match-in (list-ref c ind) unit)
+            (list 0))
+            ;;(foldr (lambda (x y) (append (match-in x unit) y) ) '() c))
+    )
+  ))
 ;============================================================================================================
 ;============================================================================================================
 ;============================================================================================================

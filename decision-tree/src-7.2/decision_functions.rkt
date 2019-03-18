@@ -6,14 +6,6 @@
 (provide y3)
 (provide y4>62)
 
-
-(define (nth n l)
-  (if (or (> n (length l)) (< n 0))
-      (error "Index out of bounds.")
-      (if (eq? n 0)
-          (car l)
-          (nth (- n 1) (cdr l)))))
-
 (define y1  (cons "feature1" (lambda (x) (car x)))) ; returns the value of feature 1 for a given test sample
 (define y2  (cons "feature2" (lambda (x) (second x))))
 (define y3  (cons "feature3" (lambda (x) (third x))))

@@ -1,0 +1,553 @@
+graph "decision-tree" {
+	r[label="sex"];
+
+	r--rt0[label="0"];
+		rt0[label="pclass"];
+
+		rt0--rt0t0[label="0"];
+			rt0t0[label="fare>50"];
+
+			rt0t0--rt0t0t0[label="0"];
+				rt0t0t0[label="parch"];
+
+				rt0t0t0--rt0t0t0t0[label="0"];
+					rt0t0t0t0[label="age>25"];
+
+					rt0t0t0t0--rt0t0t0t0t0[label="0"];
+						rt0t0t0t0t0[label="16/179"];
+
+					rt0t0t0t0--rt0t0t0t0t1[label="1"];
+						rt0t0t0t0t1[label="3/22"];
+
+				rt0t0t0--rt0t0t0t1[label="1"];
+					rt0t0t0t1[label="sibsp"];
+
+					rt0t0t0t1--rt0t0t0t1t0[label="0"];
+						rt0t0t0t1t0[label="0"];
+
+					rt0t0t0t1--rt0t0t0t1t1[label="1"];
+						rt0t0t0t1t1[label="0"];
+
+					rt0t0t0t1--rt0t0t0t1t2[label="2"];
+						rt0t0t0t1t2[label="2/5"];
+
+					rt0t0t0t1--rt0t0t0t1t3[label="3"];
+						rt0t0t0t1t3[label="1/2"];
+
+				rt0t0t0--rt0t0t0t2[label="2"];
+					rt0t0t0t2[label="age>25"];
+
+					rt0t0t0t2--rt0t0t0t2t0[label="0"];
+						rt0t0t0t2t0[label="0"];
+
+				rt0t0t0--rt0t0t0t3[label="3"];
+					rt0t0t0t3[label="sibsp"];
+
+					rt0t0t0t3--rt0t0t0t3t0[label="0"];
+						rt0t0t0t3t0[label="0"];
+
+					rt0t0t0t3--rt0t0t0t3t1[label="1"];
+						rt0t0t0t3t1[label="0"];
+
+					rt0t0t0t3--rt0t0t0t3t2[label="2"];
+						rt0t0t0t3t2[label="1/3"];
+
+					rt0t0t0t3--rt0t0t0t3t3[label="3"];
+						rt0t0t0t3t3[label="1/2"];
+
+					rt0t0t0t3--rt0t0t0t3t4[label="4"];
+						rt0t0t0t3t4[label="1/3"];
+
+				rt0t0t0--rt0t0t0t4[label="4"];
+					rt0t0t0t4[label="age>25"];
+
+					rt0t0t0t4--rt0t0t0t4t0[label="0"];
+						rt0t0t0t4t0[label="0"];
+
+				rt0t0t0--rt0t0t0t5[label="5"];
+					rt0t0t0t5[label="age>25"];
+
+					rt0t0t0t5--rt0t0t0t5t0[label="0"];
+						rt0t0t0t5t0[label="0"];
+
+			rt0t0--rt0t0t1[label="1"];
+				rt0t0t1[label="sibsp"];
+
+				rt0t0t1--rt0t0t1t0[label="0"];
+					rt0t0t1t0[label="age>25"];
+
+					rt0t0t1t0--rt0t0t1t0t0[label="0"];
+						rt0t0t1t0t0[label="3/4"];
+
+					rt0t0t1t0--rt0t0t1t0t1[label="1"];
+						rt0t0t1t0t1[label="2/3"];
+
+				rt0t0t1--rt0t0t1t1[label="1"];
+					rt0t0t1t1[label="age>25"];
+
+					rt0t0t1t1--rt0t0t1t1t0[label="0"];
+						rt0t0t1t1t0[label="0"];
+
+		rt0--rt0t1[label="1"];
+			rt0t1[label="parch"];
+
+			rt0t1--rt0t1t0[label="0"];
+				rt0t1t0[label="age>25"];
+
+				rt0t1t0--rt0t1t0t0[label="0"];
+					rt0t1t0t0[label="emb"];
+
+					rt0t1t0t0--rt0t1t0t0t0[label="0"];
+						rt0t1t0t0t0[label="19/51"];
+
+					rt0t1t0t0--rt0t1t0t0t1[label="1"];
+						rt0t1t0t0t1[label="1/2"];
+
+					rt0t1t0t0--rt0t1t0t0t2[label="2"];
+						rt0t1t0t0t2[label="0"];
+
+				rt0t1t0--rt0t1t0t1[label="1"];
+					rt0t1t0t1[label="sibsp"];
+
+					rt0t1t0t1--rt0t1t0t1t0[label="0"];
+						rt0t1t0t1t0[label="5/23"];
+
+					rt0t1t0t1--rt0t1t0t1t1[label="1"];
+						rt0t1t0t1t1[label="1/2"];
+
+			rt0t1--rt0t1t1[label="1"];
+				rt0t1t1[label="sibsp"];
+
+				rt0t1t1--rt0t1t1t0[label="0"];
+					rt0t1t1t0[label="age>25"];
+
+					rt0t1t1t0--rt0t1t1t0t0[label="0"];
+						rt0t1t1t0t0[label="0"];
+
+				rt0t1t1--rt0t1t1t1[label="1"];
+					rt0t1t1t1[label="age>25"];
+
+					rt0t1t1t1--rt0t1t1t1t0[label="0"];
+						rt0t1t1t1t0[label="1"];
+
+					rt0t1t1t1--rt0t1t1t1t1[label="1"];
+						rt0t1t1t1t1[label="1"];
+
+				rt0t1t1--rt0t1t1t2[label="2"];
+					rt0t1t1t2[label="age>25"];
+
+					rt0t1t1t2--rt0t1t1t2t0[label="0"];
+						rt0t1t1t2t0[label="0"];
+
+					rt0t1t1t2--rt0t1t1t2t1[label="1"];
+						rt0t1t1t2t1[label="1"];
+
+			rt0t1--rt0t1t2[label="2"];
+				rt0t1t2[label="emb"];
+
+				rt0t1t2--rt0t1t2t0[label="0"];
+					rt0t1t2t0[label="fare>50"];
+
+					rt0t1t2t0--rt0t1t2t0t0[label="0"];
+						rt0t1t2t0t0[label="3/7"];
+
+					rt0t1t2t0--rt0t1t2t0t1[label="1"];
+						rt0t1t2t0t1[label="0"];
+
+				rt0t1t2--rt0t1t2t1[label="1"];
+					rt0t1t2t1[label="sibsp"];
+
+					rt0t1t2t1--rt0t1t2t1t0[label="0"];
+						rt0t1t2t1t0[label="0"];
+
+					rt0t1t2t1--rt0t1t2t1t1[label="1"];
+						rt0t1t2t1t1[label="1/3"];
+
+			rt0t1--rt0t1t3[label="3"];
+				rt0t1t3[label="age>25"];
+
+				rt0t1t3--rt0t1t3t0[label="0"];
+					rt0t1t3t0[label="sibsp"];
+
+					rt0t1t3t0--rt0t1t3t0t0[label="0"];
+						rt0t1t3t0t0[label="0"];
+
+		rt0--rt0t2[label="2"];
+			rt0t2[label="parch"];
+
+			rt0t2--rt0t2t0[label="0"];
+				rt0t2t0[label="fare>50"];
+
+				rt0t2t0--rt0t2t0t0[label="0"];
+					rt0t2t0t0[label="emb"];
+
+					rt0t2t0t0--rt0t2t0t0t0[label="0"];
+						rt0t2t0t0t0[label="7/76"];
+
+					rt0t2t0t0--rt0t2t0t0t1[label="1"];
+						rt0t2t0t0t1[label="1/7"];
+
+					rt0t2t0t0--rt0t2t0t0t2[label="2"];
+						rt0t2t0t0t2[label="0"];
+
+				rt0t2t0--rt0t2t0t1[label="1"];
+					rt0t2t0t1[label="age>25"];
+
+					rt0t2t0t1--rt0t2t0t1t0[label="0"];
+						rt0t2t0t1t0[label="0"];
+
+					rt0t2t0t1--rt0t2t0t1t1[label="1"];
+						rt0t2t0t1t1[label="0"];
+
+			rt0t2--rt0t2t1[label="1"];
+				rt0t2t1[label="age>25"];
+
+				rt0t2t1--rt0t2t1t0[label="0"];
+					rt0t2t1t0[label="sibsp"];
+
+					rt0t2t1t0--rt0t2t1t0t0[label="0"];
+						rt0t2t1t0t0[label="1"];
+
+					rt0t2t1t0--rt0t2t1t0t1[label="1"];
+						rt0t2t1t0t1[label="0"];
+
+				rt0t2t1--rt0t2t1t1[label="1"];
+					rt0t2t1t1[label="sibsp"];
+
+					rt0t2t1t1--rt0t2t1t1t0[label="0"];
+						rt0t2t1t1t0[label="0"];
+
+					rt0t2t1t1--rt0t2t1t1t1[label="1"];
+						rt0t2t1t1t1[label="0"];
+
+			rt0t2--rt0t2t2[label="2"];
+				rt0t2t2[label="age>25"];
+
+				rt0t2t2--rt0t2t2t0[label="0"];
+					rt0t2t2t0[label="sibsp"];
+
+					rt0t2t2t0--rt0t2t2t0t0[label="0"];
+						rt0t2t2t0t0[label="6/7"];
+
+					rt0t2t2t0--rt0t2t2t0t1[label="1"];
+						rt0t2t2t0t1[label="1/2"];
+
+				rt0t2t2--rt0t2t2t1[label="1"];
+					rt0t2t2t1[label="sibsp"];
+
+					rt0t2t2t1--rt0t2t2t1t0[label="0"];
+						rt0t2t2t1t0[label="0"];
+
+					rt0t2t2t1--rt0t2t2t1t1[label="1"];
+						rt0t2t2t1t1[label="0"];
+
+	r--rt1[label="1"];
+		rt1[label="pclass"];
+
+		rt1--rt1t0[label="0"];
+			rt1t0[label="parch"];
+
+			rt1t0--rt1t0t0[label="0"];
+				rt1t0t0[label="fare>50"];
+
+				rt1t0t0--rt1t0t0t0[label="0"];
+					rt1t0t0t0[label="age>25"];
+
+					rt1t0t0t0--rt1t0t0t0t0[label="0"];
+						rt1t0t0t0t0[label="1"];
+
+					rt1t0t0t0--rt1t0t0t0t1[label="1"];
+						rt1t0t0t0t1[label="1"];
+
+				rt1t0t0--rt1t0t0t1[label="1"];
+					rt1t0t0t1[label="emb"];
+
+					rt1t0t0t1--rt1t0t0t1t0[label="0"];
+						rt1t0t0t1t0[label="1"];
+
+					rt1t0t0t1--rt1t0t0t1t1[label="1"];
+						rt1t0t0t1t1[label="4/5"];
+
+			rt1t0--rt1t0t1[label="1"];
+				rt1t0t1[label="sibsp"];
+
+				rt1t0t1--rt1t0t1t0[label="0"];
+					rt1t0t1t0[label="age>25"];
+
+					rt1t0t1t0--rt1t0t1t0t0[label="0"];
+						rt1t0t1t0t0[label="1"];
+
+				rt1t0t1--rt1t0t1t1[label="1"];
+					rt1t0t1t1[label="age>25"];
+
+					rt1t0t1t1--rt1t0t1t1t0[label="0"];
+						rt1t0t1t1t0[label="1"];
+
+					rt1t0t1t1--rt1t0t1t1t1[label="1"];
+						rt1t0t1t1t1[label="1"];
+
+				rt1t0t1--rt1t0t1t2[label="2"];
+					rt1t0t1t2[label="age>25"];
+
+					rt1t0t1t2--rt1t0t1t2t0[label="0"];
+						rt1t0t1t2t0[label="1/3"];
+
+					rt1t0t1t2--rt1t0t1t2t1[label="1"];
+						rt1t0t1t2t1[label="1"];
+
+				rt1t0t1--rt1t0t1t3[label="3"];
+					rt1t0t1t3[label="age>25"];
+
+					rt1t0t1t3--rt1t0t1t3t0[label="0"];
+						rt1t0t1t3t0[label="1"];
+
+			rt1t0--rt1t0t2[label="2"];
+				rt1t0t2[label="age>25"];
+
+				rt1t0t2--rt1t0t2t0[label="0"];
+					rt1t0t2t0[label="sibsp"];
+
+					rt1t0t2t0--rt1t0t2t0t0[label="0"];
+						rt1t0t2t0t0[label="1"];
+
+				rt1t0t2--rt1t0t2t1[label="1"];
+					rt1t0t2t1[label="sibsp"];
+
+					rt1t0t2t1--rt1t0t2t1t0[label="0"];
+						rt1t0t2t1t0[label="1"];
+
+					rt1t0t2t1--rt1t0t2t1t1[label="1"];
+						rt1t0t2t1t1[label="1"];
+
+		rt1--rt1t1[label="1"];
+			rt1t1[label="emb"];
+
+			rt1t1--rt1t1t0[label="0"];
+				rt1t1t0[label="sibsp"];
+
+				rt1t1t0--rt1t1t0t0[label="0"];
+					rt1t1t0t0[label="parch"];
+
+					rt1t1t0t0--rt1t1t0t0t0[label="0"];
+						rt1t1t0t0t0[label="7/15"];
+
+					rt1t1t0t0--rt1t1t0t0t1[label="1"];
+						rt1t1t0t0t1[label="3/5"];
+
+					rt1t1t0t0--rt1t1t0t0t2[label="2"];
+						rt1t1t0t0t2[label="3/4"];
+
+					rt1t1t0t0--rt1t1t0t0t3[label="3"];
+						rt1t1t0t0t3[label="0"];
+
+					rt1t1t0t0--rt1t1t0t0t4[label="4"];
+						rt1t1t0t0t4[label="0"];
+
+				rt1t1t0--rt1t1t0t1[label="1"];
+					rt1t1t0t1[label="parch"];
+
+					rt1t1t0t1--rt1t1t0t1t0[label="0"];
+						rt1t1t0t1t0[label="4/7"];
+
+					rt1t1t0t1--rt1t1t0t1t1[label="1"];
+						rt1t1t0t1t1[label="5/13"];
+
+					rt1t1t0t1--rt1t1t0t1t2[label="2"];
+						rt1t1t0t1t2[label="1/2"];
+
+					rt1t1t0t1--rt1t1t0t1t3[label="3"];
+						rt1t1t0t1t3[label="0"];
+
+					rt1t1t0t1--rt1t1t0t1t4[label="4"];
+						rt1t1t0t1t4[label="0"];
+
+					rt1t1t0t1--rt1t1t0t1t5[label="5"];
+						rt1t1t0t1t5[label="0"];
+
+					rt1t1t0t1--rt1t1t0t1t6[label="6"];
+						rt1t1t0t1t6[label="0"];
+
+				rt1t1t0--rt1t1t0t2[label="2"];
+					rt1t1t0t2[label="age>25"];
+
+					rt1t1t0t2--rt1t1t0t2t0[label="0"];
+						rt1t1t0t2t0[label="0"];
+
+					rt1t1t0t2--rt1t1t0t2t1[label="1"];
+						rt1t1t0t2t1[label="1"];
+
+				rt1t1t0--rt1t1t0t3[label="3"];
+					rt1t1t0t3[label="age>25"];
+
+					rt1t1t0t3--rt1t1t0t3t0[label="0"];
+						rt1t1t0t3t0[label="0"];
+
+				rt1t1t0--rt1t1t0t4[label="4"];
+					rt1t1t0t4[label="age>25"];
+
+					rt1t1t0t4--rt1t1t0t4t0[label="0"];
+						rt1t1t0t4t0[label="1/3"];
+
+				rt1t1t0--rt1t1t0t5[label="5"];
+					rt1t1t0t5[label="age>25"];
+
+					rt1t1t0t5--rt1t1t0t5t0[label="0"];
+						rt1t1t0t5t0[label="0"];
+
+				rt1t1t0--rt1t1t0t6[label="6"];
+					rt1t1t0t6[label="age>25"];
+
+					rt1t1t0t6--rt1t1t0t6t0[label="0"];
+						rt1t1t0t6t0[label="0"];
+
+			rt1t1--rt1t1t1[label="1"];
+				rt1t1t1[label="sibsp"];
+
+				rt1t1t1--rt1t1t1t0[label="0"];
+					rt1t1t1t0[label="parch"];
+
+					rt1t1t1t0--rt1t1t1t0t0[label="0"];
+						rt1t1t1t0t0[label="4/5"];
+
+					rt1t1t1t0--rt1t1t1t0t1[label="1"];
+						rt1t1t1t0t1[label="3/4"];
+
+					rt1t1t1t0--rt1t1t1t0t2[label="2"];
+						rt1t1t1t0t2[label="1/3"];
+
+					rt1t1t1t0--rt1t1t1t0t3[label="3"];
+						rt1t1t1t0t3[label="1"];
+
+				rt1t1t1--rt1t1t1t1[label="1"];
+					rt1t1t1t1[label="parch"];
+
+					rt1t1t1t1--rt1t1t1t1t0[label="0"];
+						rt1t1t1t1t0[label="2/5"];
+
+					rt1t1t1t1--rt1t1t1t1t1[label="1"];
+						rt1t1t1t1t1[label="1/2"];
+
+				rt1t1t1--rt1t1t1t2[label="2"];
+					rt1t1t1t2[label="age>25"];
+
+					rt1t1t1t2--rt1t1t1t2t0[label="0"];
+						rt1t1t1t2t0[label="1"];
+
+			rt1t1--rt1t1t2[label="2"];
+				rt1t1t2[label="age>25"];
+
+				rt1t1t2--rt1t1t2t0[label="0"];
+					rt1t1t2t0[label="parch"];
+
+					rt1t1t2t0--rt1t1t2t0t0[label="0"];
+						rt1t1t2t0t0[label="24/29"];
+
+					rt1t1t2t0--rt1t1t2t0t1[label="1"];
+						rt1t1t2t0t1[label="0"];
+
+				rt1t1t2--rt1t1t2t1[label="1"];
+					rt1t1t2t1[label="sibsp"];
+
+					rt1t1t2t1--rt1t1t2t1t0[label="0"];
+						rt1t1t2t1t0[label="0"];
+
+					rt1t1t2t1--rt1t1t2t1t1[label="1"];
+						rt1t1t2t1t1[label="0"];
+
+		rt1--rt1t2[label="2"];
+			rt1t2[label="parch"];
+
+			rt1t2--rt1t2t0[label="0"];
+				rt1t2t0[label="emb"];
+
+				rt1t2t0--rt1t2t0t0[label="0"];
+					rt1t2t0t0[label="age>25"];
+
+					rt1t2t0t0--rt1t2t0t0t0[label="0"];
+						rt1t2t0t0t0[label="1"];
+
+					rt1t2t0t0--rt1t2t0t0t1[label="1"];
+						rt1t2t0t0t1[label="1"];
+
+				rt1t2t0--rt1t2t0t1[label="1"];
+					rt1t2t0t1[label="sibsp"];
+
+					rt1t2t0t1--rt1t2t0t1t0[label="0"];
+						rt1t2t0t1t0[label="25/28"];
+
+					rt1t2t0t1--rt1t2t0t1t1[label="1"];
+						rt1t2t0t1t1[label="7/9"];
+
+					rt1t2t0t1--rt1t2t0t1t2[label="2"];
+						rt1t2t0t1t2[label="1"];
+
+				rt1t2t0--rt1t2t0t2[label="2"];
+					rt1t2t0t2[label="age>25"];
+
+					rt1t2t0t2--rt1t2t0t2t0[label="0"];
+						rt1t2t0t2t0[label="1"];
+
+					rt1t2t0t2--rt1t2t0t2t1[label="1"];
+						rt1t2t0t2t1[label="1"];
+
+			rt1t2--rt1t2t1[label="1"];
+				rt1t2t1[label="age>25"];
+
+				rt1t2t1--rt1t2t1t0[label="0"];
+					rt1t2t1t0[label="sibsp"];
+
+					rt1t2t1t0--rt1t2t1t0t0[label="0"];
+						rt1t2t1t0t0[label="1"];
+
+					rt1t2t1t0--rt1t2t1t0t1[label="1"];
+						rt1t2t1t0t1[label="1"];
+
+				rt1t2t1--rt1t2t1t1[label="1"];
+					rt1t2t1t1[label="sibsp"];
+
+					rt1t2t1t1--rt1t2t1t1t0[label="0"];
+						rt1t2t1t1t0[label="1"];
+
+					rt1t2t1t1--rt1t2t1t1t1[label="1"];
+						rt1t2t1t1t1[label="1"];
+
+			rt1t2--rt1t2t2[label="2"];
+				rt1t2t2[label="age>25"];
+
+				rt1t2t2--rt1t2t2t0[label="0"];
+					rt1t2t2t0[label="sibsp"];
+
+					rt1t2t2t0--rt1t2t2t0t0[label="0"];
+						rt1t2t2t0t0[label="1"];
+
+					rt1t2t2t0--rt1t2t2t0t1[label="1"];
+						rt1t2t2t0t1[label="4/5"];
+
+				rt1t2t2--rt1t2t2t1[label="1"];
+					rt1t2t2t1[label="sibsp"];
+
+					rt1t2t2t1--rt1t2t2t1t0[label="0"];
+						rt1t2t2t1t0[label="1"];
+
+					rt1t2t2t1--rt1t2t2t1t1[label="1"];
+						rt1t2t2t1t1[label="1"];
+
+					rt1t2t2t1--rt1t2t2t1t2[label="2"];
+						rt1t2t2t1t2[label="1"];
+
+			rt1t2--rt1t2t3[label="3"];
+				rt1t2t3[label="age>25"];
+
+				rt1t2t3--rt1t2t3t0[label="0"];
+					rt1t2t3t0[label="sibsp"];
+
+					rt1t2t3t0--rt1t2t3t0t0[label="0"];
+						rt1t2t3t0t0[label="1"];
+
+				rt1t2t3--rt1t2t3t1[label="1"];
+					rt1t2t3t1[label="sibsp"];
+
+					rt1t2t3t1--rt1t2t3t1t0[label="0"];
+						rt1t2t3t1t0[label="1"];
+
+}
