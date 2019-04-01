@@ -1,0 +1,1 @@
+("7.0" ("b974fa6d95d2c96a6e0bc264f562589b2e8bb881" . "fd11ff9ee05a824bfde5e6136cefd63449959589") #"/home/as/Dropbox/cs152/2019/assignment3-2019/defs.rkt" (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))
