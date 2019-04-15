@@ -298,28 +298,3 @@
         [def 'mainfn (lam '() (app 'recurse (list 2 'dummy)))]
         [def 'main (app 'mainfn '())])))
 
-(define prog14
-  (pgm (list
-        [def 'f
-          (lam (list 'x)
-               (defexp (list
-                        [def 'p
-                          (lam (list 'f)
-                               (app 'f (list (bexp * 'x 'x))))]
-                        [def 'g
-                          (lam (list 'y)
-                               (iff (bexp = 'x 2)
-                                    (beginexp
-                                      (list
-                                       (sett 'x (bexp + 'x 2))
-                                       (app 'h (list (bexp - 'y 1)))))
-                                    '()))]
-                        [def 'h
-                          (lam (list 'x)
-                               (app 'p (list
-                                        (lam (list 'w)
-                                             (bexp + 'w 'x)))))]
-                        )
-                 (app 'g (list 'x))))]
-        [def 'main (app 'f (list 2))])))
-
