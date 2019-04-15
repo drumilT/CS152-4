@@ -1,0 +1,48 @@
+#lang racket
+(provide (all-defined-out))
+
+(define-syntax list-o-three
+  (syntax-rules (@ <-)
+    [(list-o-three b @ c ... <- d) '(b d c ...)]))
+
+;(define (x) (list-o-three 2 @ 1 3 4 5 <- 3))
+
+(define-syntax mycond
+  (syntax-rules (< >)
+          [(mycond < bexp exp > more ...) (if bexp exp (mycond more ...))]
+          [(mycond < exp > ) exp ]))
+
+(define (fact n)
+  (mycond < (zero? n) 0 >
+          < (* n (fact (- n 1))) >))
+
+(define (fibo n)
+  ( mycond < ( or (zero? n) (zero? (- n 1))) ( - 1 (abs (- n 1)))  >
+           < (+ ( fibo (- n 1)) (fibo ( - n 2))) >
+           ))
+
+( define-syntax while
+  (syntax-rules ()
+   [ (while bexp more ... ) (begin (define (iterate)
+                                             (cond [bexp (begin more ...
+                                                                (iterate))]))
+                                           (iterate))]))
+    
+
+;(while bexp more ... ) (if bexp (begin (begin more ...) (while bexp more ...)) '())
+
+
+                                  
+(define i 10)
+(define y 0)
+
+(while (> i 0)
+       (set! y (+ y i))
+       (set! i (- i 1))
+       (displayln y)
+       (displayln i))
+
+
+(define x 2)
+
+(define (f x) (set! x 4))

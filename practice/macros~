@@ -1,0 +1,8 @@
+#lang racket
+(provide (all-defined-out))
+
+(define-syntax list-o-three
+  (syntax-rules (@ <-)
+    [(list-o-three b @ c ... <- d) '(b d c ..)]))
+
+(define x (list-o-three 2 @ 1 3 4 5 <- 5))

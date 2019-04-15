@@ -3,10 +3,34 @@
 (provide (all-defined-out))
 (require "defs.rkt")
 
+;(provide (struct-out pgm)(struct-out def)(struct-out defexp)(struct-out uexp)
+;         (struct-out bexp )(struct-out uexp)(struct-out iff)
+;         (struct-out app)(struct-out lam)(struct-out sett)(struct-out lett)
+;         (struct-out lets)(struct-out beginexp))
+
+
+;(struct pgm (deflist) #:transparent)
+;(struct def (var/fun exp) #:transparent)
+
+;A variable is an expression
+;A constant is an expression
+;(struct defexp (deflist exp) #:transparent) 
+;(struct uexp (op exp) #:transparent)        ;op = car, cdr
+;(struct bexp (op exp1 exp2) #:transparent)  ;op = cons, +, -, *, <, =, <=
+;(struct iff (cond exp1 exp2) #:transparent)
+;(struct app (fun explist) #:transparent) 
+;(struct lam (varlist exp) #:transparent)
+;(struct sett (var exp) #:transparent)
+;(struct lett (deflist exp2) #:transparent)
+;(struct lets (deflist exp2) #:transparent)
+;(struct beginexp (explist) #:transparent)
+
+
+
 ;The example program
 ;  (define (f g x) (g (* x x))) 
 ;  (define x 4)
-;  (define (h y) #(+ x y))
+;  (define (h y) (+ x y))
 ;  (define main (f h 5))
 
 ;;;;;;;;;;;;;;;;;
@@ -16,7 +40,7 @@
         (def 'f (lam (list 'g 'x) (app 'g (list (bexp * 'x 'x)))))
         (def 'x 4)
         (def 'h (lam (list 'y) (beginexp (list (debugexp) (bexp + 'x 'y)))))
-        (def 'main (app  'f (list 'h 5))))))
+        (def 'main1 (app  'f (list 'h 5))))))
 
 ;;;;;;;;;;;;;;;;;
 
@@ -57,6 +81,8 @@
                                  (beginexp
                                    (list
                                     (debugexp))))
+
+                                 
                                (def 'c (bexp + 'a 'b)))
                          (bexp + 'a (app 'somelambda '())))])))
 
@@ -71,11 +97,11 @@
 ;             balance)
 ;          "Insufficient funds")))
 ;
-;(define my-account #(make-account 50))
+;(define my-account (make-account 50))
 ;(define your-account (make-account 1000))
 ;> (my-account 20)
 ; 30
-;> #(your-account 20)
+;> (your-account 20)
 ; 980
 ;> (my-account 50)
 ; "Insufficient funds"
@@ -103,7 +129,7 @@
                            (debugexp)
                            (app 'your-account (list 20))))])))
 
-;(define (p q x) #(q x))
+;(define (p q x) (q x))
 ;(define (s x)
 ;  (define (t y) (+ x y))
 ;  (p t 5))
@@ -163,7 +189,7 @@
 
 ;(define (s x) (if (= x 5) 2 -1))
 ;(define main (begin
-;               (set! s (let ((g s)) (lambda (x) #(if (= x 6) 1 (g x)))))
+;               (set! s (let ((g s)) (lambda (x) # (if (= x 6) 1 (g x)))))
 ;               (s 6)))
 
 (define prog9
@@ -171,16 +197,16 @@
         [def 's (lam (list 'x) (iff (bexp = 'x 5) 2 -1))]
         [def 'main (beginexp
                      (list (sett 's
-                                 (lett (list (def 'g 's))
-                                       (lam (list 'x)
-                                            (beginexp (list (debugexp)
-                                                            (iff (bexp = 'x 6) 1
-                                                                 (app 'g (list 'x))))))))
+                                  (lett (list (def 'g 's))
+                                        (lam (list 'x)
+                                             (beginexp (list (debugexp)
+                                                             (iff (bexp = 'x 6) 1
+                                                                  (app 'g (list 'x))))))))
                            (app 's (list 6))))])))
                      
-;(define (s x) #(if (= x 5) 2 -1))
+;(define (s x) (if (= x 5) 2 -1))
 ;(define main (begin
-;               (set! s #(lambda (x) (if (= x 6) 1 (s x))))
+;               (set! s (lambda (x) (if (= x 6) 1 (s x))))
 ;               (s 6)))
 
 
@@ -193,3 +219,17 @@
                                        (beginexp (list (debugexp)
                                                        (iff (bexp = 'x 6) 1 (app 's (list 'x)))))))
                            (app 's (list 7))))])))
+
+
+(define prog11
+   (pgm (list
+        [def  'a 1]
+	[def  'b 2]
+        [def 'main (beginexp (list (debugexp) (bexp + 'a 'b)))])))
+
+(define prog12
+   (pgm (list
+        [def  'a 1]
+	[def  'b 2]
+	[def 'c (lam '() (beginexp (list (debugexp) (bexp + 'a 'b))))]	
+        [def 'main (app 'c '())])))

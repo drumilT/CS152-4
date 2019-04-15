@@ -4,35 +4,14 @@
 (require "examples.rkt")
 (require "model-interpreter.rkt")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(displayln "Program 1********************************\n")
+
+(displayln "Program 11********************************\n")
 ;
-(displayln prog1)
+(displayln prog11)
 ;
 (displayln "\n\nProgram evaluation ********************************\n")
 
-(let ([main (eval-program prog1)])
-
-  (begin
-    (newline)
-    (displayln "\n\nProgram result ********************************")
-    (displayln main)))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;(displayln "Program 2********************************\n")
-;;
-;(displayln prog2)
-;;
-;(displayln "\n\nProgram evaluation ********************************\n")
-;
-;(let ([main (eval-program prog2)])
-;
-;  (begin
-;    (newline)
-;    (displayln "\n\nProgram result ********************************")
-;    (displayln main)))
+(eval-program prog11)
 
 ;;and so on 

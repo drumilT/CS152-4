@@ -1,1 +1,1 @@
-("7.0" ("b974fa6d95d2c96a6e0bc264f562589b2e8bb881" . "fd11ff9ee05a824bfde5e6136cefd63449959589") #"/home/as/Dropbox/cs152/2019/assignment3-2019/defs.rkt" (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))
+("7.2" racket ("2db6f09368451a9a0dd7449a1c2a3cef7fb9085e" . "eb18abe584b653ce0b78f584d8b714317eb22392") #"/home/as/Dropbox/cs152/2019/assignment3-2019/defs.rkt" (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))
