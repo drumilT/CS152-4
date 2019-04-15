@@ -65,11 +65,15 @@
         [(list? exp) exp]
         [(string? exp) exp]
         [else (match exp
-                [(uexp op exp1) ...]
-                [(bexp op exp1 exp2) ...]
-                [(lam var _) ...]
+                [(uexp op exp1) ((getsym op) exp1)  ]
+                [(bexp op exp1 exp2) ((getsym op) exp1 exp2)]
+                [(lam var _) (closure (exp) (top))]
                 [(app exp1 explist)...]
-                ...and so on, fill in these...
+                [(sett var exp) ()]
+                [(beginexp expl) ()]
+                [(lett defl exp) ()]
+                [(lets defl exp) ()]
+               ; ...and so on, fill in these...
                 [(debugexp) (begin
                               (print-current-environment (top))
                               )])]))
